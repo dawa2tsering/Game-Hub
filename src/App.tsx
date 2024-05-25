@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import ListGroup from "./components/ListGroup";
+import Message from "./components/Message";
+import { useState } from "react";
+import Alert from "./components/Alert";
+import Buttons from "./components/Buttons";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  //when to show alert state varialbe
+  const [alertVisible, setAlertVisible] = useState(false);
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      {/* use message componenet */}
+      <Message></Message>
+      {/* use list group component */}
+      <ListGroup
+        items={["kathmandu", "pokhara", "chitwan", "dharan", "jhapa"]}
+        heading="List of cities"
+        onSelectItem={(item:string)=>console.log("the selected item is"+item)}
+      ></ListGroup>
+      {/* use alert component, here passing children Hi dawa which will be accessed through props but 
+      if passing the element set props to children and type ReactNode */}
+      {/* after using and operator if alertVisible is true then Alert componenet will be viewed else none */}
+      {alertVisible && (
+        <Alert onDismiss={() => setAlertVisible(false)}>Hi dawa</Alert>
+      )}
+      {/* using button components */}
+      <Buttons
+        color="primary"
+        onTap={() => {
+          console.log("clicked");
+          setAlertVisible(true);
+        }}
+      >
+        Click Me
+      </Buttons>
+    </div>
+  );
 }
 
-export default App
+//to make it usable
+export default App;
